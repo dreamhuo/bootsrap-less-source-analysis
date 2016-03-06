@@ -1,0 +1,14 @@
+// Alerts
+//警告框共用部分封装（用于信息提示的警告框，而非页面弹出框）
+.alert-variant(@background; @border; @text-color) {
+  background-color: @background;
+  border-color: @border;
+  color: @text-color;
+
+  hr {
+    border-top-color: darken(@border, 5%);
+  }
+  .alert-link {
+    color: darken(@text-color, 10%);
+  }
+}

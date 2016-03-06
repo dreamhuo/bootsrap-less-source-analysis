@@ -1,0 +1,33 @@
+// Embeds responsive具有响应式特性的嵌入内容
+//
+// 根据被嵌入内容的外部容器的宽度，自动创建一个固定的比例，
+// 从而让浏览器自动确定视频或 slideshow 的尺寸，能够在各种设备上缩放。
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  .embed-responsive-item,
+  iframe,
+  embed,
+  object,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
+}
+// 应用于.embed-responsive上 实现16:9长宽比缩放
+.embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
+
+// 应用于.embed-responsive上 实现4:3长宽比缩放
+.embed-responsive-4by3 {
+  padding-bottom: 75%;
+}

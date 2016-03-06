@@ -1,0 +1,28 @@
+// List Groups
+// 列表组公共样式定义
+//.list-group-item若是button或a则应用hover,focus，active样式
+.list-group-item-variant(@state; @background; @color) {
+  .list-group-item-@{state} {
+    color: @color;
+    background-color: @background;
+    a&,
+    button& {
+      color: @color;
+      .list-group-item-heading {
+        color: inherit;
+      }
+      &:hover,
+      &:focus {
+        color: @color;
+        background-color: darken(@background, 5%);
+      }
+      &.active,
+      &.active:hover,
+      &.active:focus {
+        color: #fff;
+        background-color: @color;
+        border-color: @color;
+      }
+    }
+  }
+}

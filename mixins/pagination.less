@@ -1,0 +1,28 @@
+// Pagination
+//分页公用封装
+//定义前后圆角样式，　padding、　line-height、font-size
+  // 这些是CSS3特有的选择器，A > B 表示选择A元素的所有子B元素。
+  // 与A B的区别在于，A B选择所有后代元素，而A > B只选择一代。
+  // A + B 表示HTML中紧随A的B元素。
+.pagination-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
+  > li {
+    > a,
+    > span {
+      padding: @padding-vertical @padding-horizontal;
+      font-size: @font-size;
+      line-height: @line-height;
+    }
+    &:first-child {
+      > a,
+      > span {
+        .border-left-radius(@border-radius);
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        .border-right-radius(@border-radius);
+      }
+    }
+  }
+}

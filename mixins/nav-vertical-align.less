@@ -1,0 +1,9 @@
+// Navbar vertical align
+// 在Navbar中垂直居中
+// 例如：一个元素拥有高度30px，调用`.navbar-vertical-align(30px);`计算适当的上下margin
+.navbar-vertical-align(@element-height) {
+    // @navbar-height为.navbar和.navbar、.navbar-brand高度
+    // 调用.navbar-vertical-align的元素为.navbar的子元素
+  margin-top: ((@navbar-height - @element-height) / 2);
+  margin-bottom: ((@navbar-height - @element-height) / 2);
+}

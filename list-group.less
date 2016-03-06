@@ -1,0 +1,110 @@
+//
+// List groups列表组
+// --------------------------------------------------
+// Base class底层样式封装
+//
+// Easily usable on <ul>, <ol>, or <div>.
+// 列表组样式定义，可应用于<ul>, <ol>, <div>,<button>,<a>，
+// 列表组件用于以列表形式呈现复杂的和自定义的内容。创建一个基本的列表组的步骤如下：
+//     向元素 <ul> 添加 class .list-group。
+//     向 <li> 添加 class .list-group-item。
+// 向列表组添加自定义内容时，一般会用到.list-group-item-heading和.list-group-item-text
+// .list-group-item-heading一般用在H元素上，.list-group-item-text一般用在P元素上
+//应用这两个样式主要是为了风格一至
+.list-group {
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+
+// 位于.list-group内
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: @list-group-bg;
+  border: 1px solid @list-group-border;
+  // Round the first and last items
+  &:first-child {
+    .border-top-radius(@list-group-border-radius);
+  }
+  &:last-child {
+    margin-bottom: 0;
+    .border-bottom-radius(@list-group-border-radius);
+  }
+}
+
+// 若列表组的子项是a或button则添加hover,focus等
+a.list-group-item,
+button.list-group-item {
+  color: @list-group-link-color;
+
+  .list-group-item-heading {
+    color: @list-group-link-heading-color;
+  }
+  // Hover状态
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: @list-group-link-hover-color;
+    background-color: @list-group-hover-bg;
+  }
+}
+button.list-group-item {
+  width: 100%;
+  text-align: left;
+}
+
+  // 禁用狀态，在.list-group-item上添加.disabled样式
+.list-group-item {
+  &.disabled,
+  &.disabled:hover,
+  &.disabled:focus {
+    background-color: @list-group-disabled-bg;
+    color: @list-group-disabled-color;
+    cursor: @cursor-disabled;
+    // Force color to inherit for custom content
+    .list-group-item-heading {
+      color: inherit;
+    }
+    .list-group-item-text {
+      color: @list-group-disabled-text-color;
+    }
+  }
+
+  // Active状态样式定义
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    z-index: 2; // Place active items above their siblings for proper border styling
+    color: @list-group-active-color;
+    background-color: @list-group-active-bg;
+    border-color: @list-group-active-border;
+
+    // Force color to inherit for custom content
+    .list-group-item-heading,
+    .list-group-item-heading > small,
+    .list-group-item-heading > .small {
+      color: inherit;
+    }
+    .list-group-item-text {
+      color: @list-group-active-text-color;
+    }
+  }
+}
+
+// 颜色样式，在.list-group-item上应用.list-group-item-xxxxxx样式应用相应的颜色风格样式
+.list-group-item-variant(success; @state-success-bg; @state-success-text);
+.list-group-item-variant(info; @state-info-bg; @state-info-text);
+.list-group-item-variant(warning; @state-warning-bg; @state-warning-text);
+.list-group-item-variant(danger; @state-danger-bg; @state-danger-text);
+
+// 自定义内容选项
+.list-group-item-heading {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.list-group-item-text {
+  margin-bottom: 0;
+  line-height: 1.3;
+}

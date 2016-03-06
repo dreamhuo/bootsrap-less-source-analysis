@@ -1,0 +1,210 @@
+//
+// 下拉菜单
+// --------------------------------------------------
+
+
+// 下拉菜单小箭头
+//注意：caret颜色继承父级color
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top:   @caret-width-base dashed;
+  border-top:   @caret-width-base solid ~"\9"; // IE8
+  border-right: @caret-width-base solid transparent;
+  border-left:  @caret-width-base solid transparent;
+}
+
+// 上弹菜单，下弹菜单，父级包裹。处于菜单最外层
+.dropup,
+.dropdown {
+  position: relative;
+}
+
+// 当关闭下拉/下拉菜单时，防止在菜单上获取焦点虚框
+.dropdown-toggle:focus {
+  outline: 0;
+}
+
+// 下拉菜单项
+//一般为一个ul列表，位于.dropup,.dropdown子级，与.caret父级平级
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: @zindex-dropdown;
+  display: none; // 默认隐藏，在.dropup,.dropdown上应用.open时显示
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0; // override default ul
+  list-style: none;
+  font-size: @font-size-base;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  background-color: @dropdown-bg;
+  border: 1px solid @dropdown-fallback-border; // IE8 fallback
+  border: 1px solid @dropdown-border;
+  border-radius: @border-radius-base;
+  .box-shadow(0 6px 12px rgba(0,0,0,.175));
+   // 在写移动端页面时，经常会用padding撑开一个内容，这时如果有圆角的话，里面的背景将超出圆角，看不出圆角效果，这时需要添加这个属性。
+  background-clip: padding-box;
+  // 添加pull-right可使菜单项与菜单标题右对齐
+  &.pull-right {
+    right: 0;
+    left: auto;
+  }
+  // 分隔条样式，在这里应用于li上
+  .divider {
+    .nav-divider(@dropdown-divider-bg);
+  }
+  // 下拉菜单中的链接
+  > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: @line-height-base;
+    color: @dropdown-link-color;
+    white-space: nowrap; // 阻止换行
+  }
+}
+
+// Hover和Focus状态样式
+.dropdown-menu > li > a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: @dropdown-link-hover-color;
+    background-color: @dropdown-link-hover-bg;
+  }
+}
+
+// Active状态样式
+.dropdown-menu > .active > a {
+  &,
+  &:hover,
+  &:focus {
+    color: @dropdown-link-active-color;
+    text-decoration: none;
+    outline: 0;
+    background-color: @dropdown-link-active-bg;
+  }
+}
+
+// Disabled状态样式
+//
+// Gray out text and ensure the hover/focus state remains gray
+
+.dropdown-menu > .disabled > a {
+  &,
+  &:hover,
+  &:focus {
+    color: @dropdown-link-disabled-color;
+  }
+
+  // Nuke hover/focus effects
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    background-color: transparent;
+    background-image: none; // Remove CSS gradient
+    .reset-filter();
+    cursor: @cursor-disabled;
+  }
+}
+
+// 下拉菜单打开状态
+.open {
+  // 显示菜单
+  > .dropdown-menu {
+    display: block;
+  }
+  // 移除获取焦点时触发的outline样式
+  > a {
+    outline: 0;
+  }
+}
+
+// 菜单定位
+//
+//与pull-right类作用相同，可使菜单项与菜单标题右对齐
+.dropdown-menu-right {
+  left: auto; // Reset the default from `.dropdown-menu`
+  right: 0;
+}
+// 可使菜单项与菜单标题左对齐
+.dropdown-menu-left {
+  left: 0;
+  right: auto;
+}
+
+// 下拉菜单headers样式
+// 添加到菜单li上，为菜单添加标题
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: @font-size-small;
+  line-height: @line-height-base;
+  color: @dropdown-header-color;
+  white-space: nowrap; // as with > li > a
+}
+
+// 在移动设备上，打开一个下拉菜单需要添加一个.dropdown-backdrop，
+// 当轻触（tap）菜单以外区域的时候，用来关闭下拉菜单，如果需要支持所有iOS版本，这是一个必要条件。
+// 这意味着，在移动设备上，从打开的下拉菜单切换到另一个下拉菜单需要额外轻触（tap）一次。
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: (@zindex-dropdown - 10);
+}
+
+// 下拉菜单右对齐时，同时右对齐下拉菜单子菜单
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+// 允许下拉菜单从底部弹出
+// 通过为下拉菜单的父元素设置 .dropup 类，可以让菜单向上弹出（默认是向下弹出的）。
+// 注意：导航条固定在底部样式不放在这里，
+// 这里只顺带定义了.navbar-fixed-bottom下的下拉菜单默认从下向上弹出
+// 添加 .navbar-fixed-bottom 类可以让导航条固定在底部
+.dropup,
+.navbar-fixed-bottom .dropdown {
+  // Reverse the caret
+  .caret {
+    border-top: 0;
+    border-bottom: @caret-width-base dashed;
+    border-bottom: @caret-width-base solid ~"\9"; // IE8
+    content: "";
+  }
+  // Different positioning for bottom up menu
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+  }
+}
+
+
+// 组件对齐
+//
+// 定义导航条中右对齐下拉菜单
+
+@media (min-width: @grid-float-breakpoint) {
+  .navbar-right {
+    .dropdown-menu {
+      .dropdown-menu-right();
+    }
+    // 有必要重写默认右对齐菜单
+    // 在v4版本中将有可能删除
+    .dropdown-menu-left {
+      .dropdown-menu-left();
+    }
+  }
+}

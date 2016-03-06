@@ -1,0 +1,106 @@
+// 栅格框架生成
+
+// 只有给定正确数量的`@grid-columns`值，才能通过Bootstrap用来生成栅格样式
+.make-grid-columns() {
+  // 公共样式：栅格所有“列”的大小，widths 1-12
+  // 默认@grid-columns为12 定义在../variables.less中
+  //<函数入口>
+  .col(@index) {
+    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+    .col((@index + 1), @item);
+  }
+  // @index =< @grid-columns时的引导函数作用：不断的通过 “过字符串插值” 把所有栅格的列进行字符串拼接
+  .col(@index, @list) when (@index =< @grid-columns) { // 一般原则; "=<" 不是一个拼写错误
+    @item: ~".col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+    .col((@index + 1), ~"@{list}, @{item}");
+  }
+  // @index > @grid-columns时的引导函数作用：所有栅格的列拼接完成转给@list生成栅格列的公共样式
+  .col(@index, @list) when (@index > @grid-columns) {
+    @{list} {
+      position: relative;
+      //预防列为空时高度塌陷
+      min-height: 1px;
+      // 栅格“列”左右边框
+      padding-left:  ceil((@grid-gutter-width / 2));
+      padding-right: floor((@grid-gutter-width / 2));
+    }
+  }
+  //<../函数结束>
+  .col(1); // kickstart it  启动它
+}
+
+// 内部函数封装，用于生成公用浮动类
+.float-grid-columns(@class) {
+  // <函数入口>
+  .col(@index) {
+    @item: ~".col-@{class}-@{index}";
+    .col((@index + 1), @item);
+  }
+  // @index =< @grid-columns时的引导函数作用：不断的通过 “过字符串插值” 把所有栅格的class类进行字符串拼接
+  .col(@index, @list) when (@index =< @grid-columns) {
+    @item: ~".col-@{class}-@{index}";
+    .col((@index + 1), ~"@{list}, @{item}");
+  }
+  // @index > @grid-columns时的引导函数作用：所有栅格的class类拼接完成转给@list生成栅格列的公共样式
+  .col(@index, @list) when (@index > @grid-columns) {
+    @{list} {
+      float: left;
+    }
+  }
+  //<../函数结束>
+  .col(1); // kickstart it  启动它
+}
+
+// 内部函数封装
+//用于生成各栅格列宽度
+.calc-grid-column(@index, @class, @type) when (@type = width) and (@index > 0) {
+  .col-@{class}-@{index} {
+    width: percentage((@index / @grid-columns));
+  }
+}
+
+//用于生成各栅格列向左对齐列
+.calc-grid-column(@index, @class, @type) when (@type = push) and (@index > 0) {
+  .col-@{class}-push-@{index} {
+    left: percentage((@index / @grid-columns));
+  }
+}
+.calc-grid-column(@index, @class, @type) when (@type = push) and (@index = 0) {
+  .col-@{class}-push-0 {
+    left: auto;
+  }
+}
+
+//用于生成各栅格列向右对齐列
+.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index > 0) {
+  .col-@{class}-pull-@{index} {
+    right: percentage((@index / @grid-columns));
+  }
+}
+.calc-grid-column(@index, @class, @type) when (@type = pull) and (@index = 0) {
+  .col-@{class}-pull-0 {
+    right: auto;
+  }
+}
+//用于生成各栅格列向左偏移列
+.calc-grid-column(@index, @class, @type) when (@type = offset) {
+  .col-@{class}-offset-@{index} {
+    margin-left: percentage((@index / @grid-columns));
+  }
+}
+
+//基础循环函数封装
+.loop-grid-columns(@index, @class, @type) when (@index >= 0) {
+  .calc-grid-column(@index, @class, @type);
+  //再执行下一个栅格列循环
+  .loop-grid-columns((@index - 1), @class, @type);
+}
+
+// 用于制作各个屏幕分辨率的适用样式
+.make-grid(@class) {
+  .float-grid-columns(@class);
+  .loop-grid-columns(@grid-columns, @class, width);
+  .loop-grid-columns(@grid-columns, @class, pull);
+  .loop-grid-columns(@grid-columns, @class, push);
+  .loop-grid-columns(@grid-columns, @class, offset);
+}

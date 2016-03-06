@@ -1,0 +1,26 @@
+// Panels
+//页面面板（标题栏+内容栏，封装面板样式：标题框背景、边框及内容栏边框样式）
+.panel-variant(@border; @heading-text-color; @heading-bg-color; @heading-border) {
+  border-color: @border;
+  // 这些是CSS3特有的选择器，A > B 表示选择A元素的所有子B元素。
+  // 与A B的区别在于，A B选择所有后代元素，而A > B只选择一代。
+  // A + B 表示HTML中紧随A的B元素。
+  & > .panel-heading {
+    color: @heading-text-color;
+    background-color: @heading-bg-color;
+    border-color: @heading-border;
+    // 实际使用时可以panel-heading后跟一个panel-collapse，一组一组形成一个折叠项
+    + .panel-collapse > .panel-body {
+      border-top-color: @border;
+    }
+    .badge {
+      color: @heading-bg-color;
+      background-color: @heading-text-color;
+    }
+  }
+  & > .panel-footer {
+    + .panel-collapse > .panel-body {
+      border-bottom-color: @border;
+    }
+  }
+}

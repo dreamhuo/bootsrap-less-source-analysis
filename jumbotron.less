@@ -1,0 +1,46 @@
+//
+// Jumbotron巨幕样式
+// --------------------------------------------------
+// 这是一个轻量、灵活的组件，它能延伸至整个浏览器视口来展示网站上的关键内容。
+.jumbotron {
+  padding-top:    @jumbotron-padding;
+  padding-bottom: @jumbotron-padding;
+  margin-bottom: @jumbotron-padding;
+  color: @jumbotron-color;
+  background-color: @jumbotron-bg;
+  h1,
+  .h1 {
+    color: @jumbotron-heading-color;
+  }
+  p {
+    margin-bottom: (@jumbotron-padding / 2);
+    font-size: @jumbotron-font-size;
+    font-weight: 200;
+  }
+  > hr {
+    border-top-color: darken(@jumbotron-bg, 10%);
+  }
+// 获得占用全部宽度且不带圆角的超大屏幕，请在所有的 .container class 外使用 .jumbotron class，
+  .container &,
+  .container-fluid & {
+    border-radius: @border-radius-large; // Only round corners at higher resolutions if contained in a container
+    padding-left:  (@grid-gutter-width / 2);
+    padding-right: (@grid-gutter-width / 2);
+  }
+  .container {
+    max-width: 100%;
+  }
+  @media screen and (min-width: @screen-sm-min) {
+    padding-top:    (@jumbotron-padding * 1.6);
+    padding-bottom: (@jumbotron-padding * 1.6);
+    .container &,
+    .container-fluid & {
+      padding-left:  (@jumbotron-padding * 2);
+      padding-right: (@jumbotron-padding * 2);
+    }
+    h1,
+    .h1 {
+      font-size: @jumbotron-heading-font-size;
+    }
+  }
+}

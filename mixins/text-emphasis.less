@@ -1,0 +1,11 @@
+// Typography
+//强调文本样式
+.text-emphasis-variant(@color) {
+  color: @color;
+  //若是链接，则添加hover、focus样式
+  a&:hover,
+  a&:focus {
+    // 调用less内置函数darken函数将背景色亮度降低 10%
+    color: darken(@color, 10%);
+  }
+}

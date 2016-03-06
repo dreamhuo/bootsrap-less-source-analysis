@@ -1,0 +1,8 @@
+// Resize anything
+
+//是否可调整元素大小尺寸封装
+.resizable(@direction) {
+  resize: @direction; // 选项:none, horizontal, vertical, both
+  overflow: auto;    // 必须 `overflow` 不是 `visible` 时 `resize`才有效
+                     // auto时,超出内容将滚动条显示
+}

@@ -1,0 +1,151 @@
+//
+// Modals模态框
+// --------------------------------------------------
+// 模态框（Modal）是覆盖在父窗体上的子窗体。
+// .modal-open      - 应用在body上的样式， 弹出模态框时，去掉页面滚动条
+// .modal           - 覆盖整个页面，模态框容器，内容多时滚动
+// .modal-dialog    - 模态框主体，在.modal中水平居中显示
+// .modal-content   - actual modal w/ bg and corners and shit
+
+// 应用在body上的样式， 弹出模态框时，去掉页面滚动条
+.modal-open {
+  overflow: hidden;
+}
+
+// .modal是模态框主容器，用来把 <div> 的内容识别为模态框。
+.modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @zindex-modal;
+  -webkit-overflow-scrolling: touch;
+  // 阻止Chrome浏览器在Windows添加一个获取焦点的ouline
+  // https://github.com/twbs/bootstrap/pull/10951.
+  outline: 0;
+  //添加.fade样式模态框弹出时的动画效果（淡入淡出效果）
+  &.fade .modal-dialog {
+    .translate(0, -25%);
+    .transition-transform(~"0.3s ease-out");
+  }
+  &.in .modal-dialog { .translate(0, 0) }
+}
+
+//内容多时设置垂直滚动条
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// 位于.modal内。模态框主体，在.modal中水平居中显示
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+
+// .modal-content位于.modal-dialog中，里面放置.modal-header .modal-body .modal-footer用于构建模态框
+.modal-content {
+  position: relative;
+  background-color: @modal-content-bg;
+  border: 1px solid @modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+  border: 1px solid @modal-content-border-color;
+  border-radius: @border-radius-large;
+  .box-shadow(0 3px 9px rgba(0,0,0,.5));
+  background-clip: padding-box;
+  // Remove focus outline from opened modal
+  outline: 0;
+}
+
+// 模态框背景
+// 自动生成一个 .modal-backdrop 元素用于提供一个可点击的区域，点击此区域就即可关闭模态框。
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @zindex-modal-background;
+  background-color: @modal-backdrop-bg;
+  // Fade for backdrop
+  &.fade { .opacity(0); }
+  &.in { .opacity(@modal-backdrop-opacity); }
+}
+
+// 模态框头部
+.modal-header {
+  padding: @modal-title-padding;
+  border-bottom: 1px solid @modal-header-border-color;
+  &:extend(.clearfix all);
+}
+// 关闭按钮
+.modal-header .close {
+  margin-top: -2px;
+}
+
+// 位于.modal-header下，一般与H配合使用，构建模态框标题
+.modal-title {
+  margin: 0;
+  line-height: @modal-title-line-height;
+}
+
+// 模态框body
+// 与 .modal-header .modal-footer平级
+.modal-body {
+  position: relative;
+  padding: @modal-inner-padding;
+}
+
+// // 模态框footer
+.modal-footer {
+  padding: @modal-inner-padding;
+  text-align: center; // right align buttons
+  border-top: 1px solid @modal-footer-border-color;
+  &:extend(.clearfix all); // clear it in case folks use .pull-* classes on buttons
+  // 为按钮设置间距
+  .btn + .btn {
+    margin-left: 5px;
+    margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  }
+  // 为按钮组重写样式
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+  // 覆盖块按钮
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+}
+
+// Measure scrollbar width for padding body during modal show/hide
+// 主要是给JS调用，避免弹出模态框时去掉滚动条但是避免页面内容偏移
+//js中主要实现原理，在body里添加.modal-measure-scrollbar和.inner。
+// 使 .modal-measure-scrollbar 产生滚动条，而 .inner 是不包括滚动条的全宽，他们的差值正好就是滚动条的宽度！
+// 计算好滚动条宽度后就为 html 标签赋予相应的类来 margin-right 一下
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+// 模态框提供了两个可选尺寸，通过为 .modal-dialog 增加.modal-sm或.modal-lg调整类实现。
+@media (min-width: @screen-sm-min) {
+  // 对于大视窗自动调整模态框的宽度
+  .modal-dialog {
+    width: @modal-md;
+    margin: 30px auto;
+  }
+  .modal-content {
+    .box-shadow(0 5px 15px rgba(0,0,0,.5));
+  }
+  // Modal sizes
+  .modal-sm { width: @modal-sm; }
+}
+@media (min-width: @screen-md-min) {
+  .modal-lg { width: @modal-lg; }
+}

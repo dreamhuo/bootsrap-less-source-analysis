@@ -1,0 +1,52 @@
+//
+// Pager pagination
+// --------------------------------------------------
+// 在默认的翻页中，链接居中对齐。
+
+.pager {
+  padding-left: 0;
+  margin: @line-height-computed 0;
+  list-style: none;
+  text-align: center;                 //默认居中显示
+  &:extend(.clearfix all);
+  li {
+    display: inline;
+    > a,
+    > span {
+      display: inline-block;
+      padding: 5px 14px;
+      background-color: @pager-bg;
+      border: 1px solid @pager-border;
+      border-radius: @pager-border-radius;
+    }
+    > a:hover,
+    > a:focus {
+      text-decoration: none;
+      background-color: @pager-hover-bg;
+    }
+  }
+//利用浮动可实现两端对齐
+  .next {
+    > a,
+    > span {
+      float: right;
+    }
+  }
+  .previous {
+    > a,
+    > span {
+      float: left;
+    }
+  }
+//禁用样式
+  .disabled {
+    > a,
+    > a:hover,
+    > a:focus,
+    > span {
+      color: @pager-disabled-color;
+      background-color: @pager-bg;
+      cursor: @cursor-disabled;
+    }
+  }
+}

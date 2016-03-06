@@ -1,0 +1,54 @@
+//
+// Labels标签
+// --------------------------------------------------
+//一般应用到span上
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  line-height: 1;
+  color: @label-color;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  // Add hover effects, but only for links
+  a& {
+    &:hover,
+    &:focus {
+      color: @label-link-hover-color;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+  // 若为空则自动隐藏 (不支持IE8)
+  &:empty {
+    display: none;
+  }
+  // 快速修补label在buttons里的样式
+  .btn & {
+    position: relative;
+    top: -1px;
+  }
+}
+
+// 颜色
+// 若为link则调用darker函数生成hover的颜色
+.label-default {
+  .label-variant(@label-default-bg);
+}
+.label-primary {
+  .label-variant(@label-primary-bg);
+}
+.label-success {
+  .label-variant(@label-success-bg);
+}
+.label-info {
+  .label-variant(@label-info-bg);
+}
+.label-warning {
+  .label-variant(@label-warning-bg);
+}
+.label-danger {
+  .label-variant(@label-danger-bg);
+}

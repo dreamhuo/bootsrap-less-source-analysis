@@ -1,0 +1,10 @@
+// Progress bars
+//进度条样式封装
+.progress-bar-variant(@color) {
+  background-color: @color;
+  //进度条条纹背景
+  // 可与progress-bar-success，progress-bar-info，progress-bar-warning，progress-bar-danger结合运用，实现多种颜色条纹进度条
+  .progress-striped & {
+    #gradient > .striped();
+  }
+}

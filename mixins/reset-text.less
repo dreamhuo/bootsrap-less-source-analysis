@@ -1,0 +1,19 @@
+//重置元素内文本样式
+.reset-text() {
+  font-family: @font-family-base;
+  // 复位时不重置文本的font-size
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-break: auto;
+  line-height: @line-height-base;
+  text-align: left; // 不支持CSS3 'start' 属性时应用 'left' 属性
+  text-align: start; //内容对齐开始边界。（CSS3）
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+}

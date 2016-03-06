@@ -1,0 +1,18 @@
+// WebKit-style focus
+// 点击时可以有效地去除链接外框，键盘focus时又保留链接外框。
+//具体实现normalize.less里定义了
+// a:active,
+// a:hover {
+//   outline: 0;
+// }
+//在需要的地方的:focus上调用.tab-focus()添加链接外框
+// 链接active时会去掉链接外框
+//同时在所有需要响应链盘focus的地方都可以调用.tab-focus()
+// 其他地方无链接外框，只需加，不需要去掉
+.tab-focus() {
+  // Default
+  outline: thin dotted;
+  // WebKit
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}

@@ -1,0 +1,84 @@
+//
+// Progress bars进度条
+// --------------------------------------------------
+
+    // 添加一个带有 class .progress 的 <div>。
+    // 接着，在上面的 <div> 内，添加一个带有 class .progress-bar 的空的 <div>。
+    // 添加一个带有百分比表示的宽度的 style 属性，例如 style="60%"; 表示进度条在 60% 的位置。
+
+
+// 动画keyframes定义
+// WebKit
+@-webkit-keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+// Spec and IE10+
+@keyframes progress-bar-stripes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+
+// Bar itself
+// -------------------------
+
+// 进度条最外层DIV
+.progress {
+  overflow: hidden;
+  height: @line-height-computed;
+  margin-bottom: @line-height-computed;
+  background-color: @progress-bg;
+  border-radius: @progress-border-radius;
+  .box-shadow(inset 0 1px 2px rgba(0,0,0,.1));
+}
+
+// 进度条的进度
+//.progress-bar位于.progress下
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: @font-size-small;
+  line-height: @line-height-computed;
+  color: @progress-bar-color;
+  text-align: center;
+  background-color: @progress-bar-bg;
+  .box-shadow(inset 0 -1px 0 rgba(0,0,0,.15));
+  .transition(width .6s ease);
+}
+
+// 条纹进度条
+// -------------------------
+// 可在 .progress 上添加 .progress-striped 样式，可添加条纹样式
+// 也可在.progress-bar上添加.progress-bar-striped样式，两种方法都可实现条纹进度条样式
+.progress-striped .progress-bar,
+.progress-bar-striped {
+  #gradient > .striped();
+  background-size: 40px 40px;
+}
+
+// 动画的进度条
+//
+// 可在 .progress 上添加 .active 样式，可添加动画条纹样式
+// 也可在.progress-bar上添加.active样式，两种方法都可实现动画条纹进度条样式
+.progress.active .progress-bar,
+.progress-bar.active {
+  .animation(progress-bar-stripes 2s linear infinite);
+}
+
+// 颜色样式
+// -------------------------
+//在.progress-bar上添加.progress-bar-xxxxxxx为进度条添加样式
+.progress-bar-success {
+  .progress-bar-variant(@progress-bar-success-bg);
+}
+.progress-bar-info {
+  .progress-bar-variant(@progress-bar-info-bg);
+}
+.progress-bar-warning {
+  .progress-bar-variant(@progress-bar-warning-bg);
+}
+.progress-bar-danger {
+  .progress-bar-variant(@progress-bar-danger-bg);
+}

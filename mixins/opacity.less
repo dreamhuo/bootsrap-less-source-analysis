@@ -1,0 +1,11 @@
+// Opacity
+// 设置元素透明度，同封装了对ie的支持
+.opacity(@opacity) {
+  opacity: @opacity;
+  // IE8 filter
+  @opacity-ie: (@opacity * 100);
+  // 计算ie的透明度，因ie透明度用1~100的整数表示，故*100
+  // 注意引用局部变量opacity-ie时，用@{opacity-ie}，没有大括号就变成了变量"@opacity" + "-ie"
+  // 例如：@opacity=20，则生成为：40-ie。所以必须加大括号
+  filter: ~"alpha(opacity=@{opacity-ie})";
+}

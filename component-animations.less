@@ -1,0 +1,37 @@
+//
+// 动画组件
+// --------------------------------------------------
+
+// 注意！
+//
+// We don't use the `.opacity()` mixin here since it causes a bug with text
+// fields in IE7-8. Source: https://github.com/twbs/bootstrap/pull/3552.
+//显示隐藏 渐隐动画
+.fade {
+  opacity: 0;
+  .transition(opacity .15s linear);
+  &.in {
+    opacity: 1;
+  }
+}
+
+//折叠展开 动画
+//默认.collapse折叠状态,in展开状态
+.collapse {
+  display: none;
+
+  &.in      { display: block; }
+  tr&.in    { display: table-row; }
+  tbody&.in { display: table-row-group; }
+}
+//播放动画时移除.collapse添加.collapsing样式
+//动画播放完成再添加.collapse和.in样式
+//正在进行中动画
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  .transition-property(~"height, visibility");
+  .transition-duration(.35s);
+  .transition-timing-function(ease);
+}

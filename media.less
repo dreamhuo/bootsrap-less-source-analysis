@@ -1,0 +1,75 @@
+//
+// media 媒体组件
+// --------------------------------------------------
+// 这些抽象的对象样式用于创建各种类型的组件（比如：博客评论），我们可以在组件中使用图文混排，图像可以左对齐或者右对齐。
+// 媒体对象可以用更少的代码来实现媒体对象与文字的混排。
+
+// .media：该 class 允许将媒体对象里的多媒体（图像、视频、音频）浮动到内容区块的左边或者右边。
+//.media一般做为单条数据的item
+.media {
+  // .media实例之间的适当间距
+  margin-top: 15px;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+// .media-body一般放文字，与media-left、media-right实现左右布局
+.media,
+.media-body {
+  zoom: 1;
+  overflow: hidden;
+}
+.media-body {
+  width: 10000px;
+}
+
+// .media-object一般应用在图片上
+.media-object {
+  display: block;
+  // Fix collapse in webkit from max-width: 100% and display: table-cell.
+  &.img-thumbnail {
+    max-width: none;
+  }
+}
+
+// .pull-left 和 .pull-right 这两个类以前也曾经被用在了媒体组件上，但是，从 v3.3.0 版本开始，他们就不再被建议使用了。
+// .media-left 和 .media-right 替代了他们，
+// 注意：在 html 结构中，
+// .media-left 应当放在 .media-body 的前面。
+// .media-right 应当放在 .media-body 的后面。
+.media-right,
+.media > .pull-right {
+  padding-left: 10px;
+}
+.media-left,
+.media > .pull-left {
+  padding-right: 10px;
+}
+.media-left,
+.media-right,
+.media-body {
+  display: table-cell;
+  vertical-align: top;
+}
+
+//垂直对齐样式（默认顶部对齐）
+//一般应用在.media-left、.media-right确定其与.media-body的对齐方式
+.media-middle {
+  vertical-align: middle;
+}
+.media-bottom {
+  vertical-align: bottom;
+}
+
+// 一般应用在.media-body里的H元素上，用于重置H的margin值
+.media-heading {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+// .media-list：如果你需要一个列表，各项内容是无序列表的一部分，可以使用该 class。可用于评论列表与文章列表。
+.media-list {
+  padding-left: 0;
+  list-style: none;
+}

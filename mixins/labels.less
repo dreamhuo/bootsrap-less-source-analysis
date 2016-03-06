@@ -1,0 +1,14 @@
+// Labels
+
+// 封装label函数
+    .label-variant(@color) {
+      background-color: @color;
+      // 若调用label样式的是一个a链接，则应用hover和focus样式
+      &[href] {
+        &:hover,
+        &:focus {
+          // 调用less内置函数darken函数将背景色亮度降低 10%
+          background-color: darken(@color, 10%);
+        }
+      }
+    }

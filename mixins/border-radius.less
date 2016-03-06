@@ -1,0 +1,22 @@
+// Single side border-radius
+// 封装各种圆角样式
+// 上圆角：.border-top-radius
+// 右圆角：.border-right-radius
+// 下圆角：.border-bottom-radius
+// 左圆角：.border-left-radius
+.border-top-radius(@radius) {
+  border-top-right-radius: @radius;
+   border-top-left-radius: @radius;
+}
+.border-right-radius(@radius) {
+  border-bottom-right-radius: @radius;
+     border-top-right-radius: @radius;
+}
+.border-bottom-radius(@radius) {
+  border-bottom-right-radius: @radius;
+   border-bottom-left-radius: @radius;
+}
+.border-left-radius(@radius) {
+  border-bottom-left-radius: @radius;
+     border-top-left-radius: @radius;
+}

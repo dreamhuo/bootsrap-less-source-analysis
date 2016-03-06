@@ -1,0 +1,41 @@
+//
+// Thumbnails 缩略图
+// --------------------------------------------------
+
+
+// 在图像周围添加带有 class .thumbnail 的 <a> 标签。
+// 这会添加四个像素的内边距（padding）和一个灰色的边框。
+// 当鼠标悬停在图像上时，会动画显示出图像的轮廓。
+
+.thumbnail {
+  display: block;
+  margin-bottom: @line-height-computed;
+  padding: @thumbnail-padding;
+  line-height: @line-height-base;
+  background-color: @thumbnail-bg;
+  border: 1px solid @thumbnail-border;
+  border-radius: @thumbnail-border-radius;
+  .transition(border .2s ease-in-out);
+  > img,
+  a > img {
+    &:extend(.img-responsive);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // 链接样式
+  a&:hover,
+  a&:focus,
+  a&.active {
+    border-color: @link-color;
+  }
+
+  // 图片标题(很少用)
+    // 把带有 class .thumbnail 的 <a> 标签改为 <div>。
+    // 在该 <div> 内，您可以添加任何您想要添加的东西。由于这是一个 <div>，我们可以使用默认的基于 span 的命名规则来调整大小。
+    // 如果您想要给多个图像进行分组，请把它们放置在一个无序列表中，且每个列表项向左浮动。
+  .caption {
+    padding: @thumbnail-caption-padding;
+    color: @thumbnail-caption-color;
+  }
+}
